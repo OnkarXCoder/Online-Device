@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Add Product | TechFix Admin</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+/* BACKGROUND */
+
+body{
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#0f172a,#1e293b);
+padding:30px;
+}
+
+/* CARD */
+
+.box{
+background:rgba(255,255,255,0.95);
+padding:40px;
+border-radius:16px;
+width:480px;
+box-shadow:0 20px 50px rgba(0,0,0,0.4);
+backdrop-filter:blur(10px);
+}
+
+/* HEADER */
+
+h2{
+text-align:center;
+margin-bottom:25px;
+color:#111827;
+}
+
+/* LABEL */
+
+label{
+font-size:13px;
+font-weight:600;
+color:#444;
+display:block;
+margin-bottom:6px;
+}
+
+/* INPUT */
+
+input, textarea{
+width:100%;
+padding:11px;
+border-radius:8px;
+border:1px solid #ddd;
+margin-bottom:16px;
+font-size:14px;
+transition:0.25s;
+}
+
+input:focus, textarea:focus{
+border-color:#ff9900;
+outline:none;
+box-shadow:0 0 0 2px rgba(255,153,0,0.2);
+}
+
+textarea{
+resize:none;
+height:80px;
+}
+
+/* FILE UPLOAD */
+
+.file-upload{
+border:2px dashed #ddd;
+border-radius:10px;
+padding:15px;
+text-align:center;
+margin-bottom:18px;
+cursor:pointer;
+transition:0.25s;
+}
+
+.file-upload:hover{
+border-color:#ff9900;
+background:#fff7e6;
+}
+
+.file-upload input{
+border:none;
+}
+
+/* IMAGE PREVIEW */
+
+.preview{
+width:100%;
+height:160px;
+border-radius:10px;
+object-fit:cover;
+margin-bottom:15px;
+display:none;
+}
+
+/* BUTTON */
+
+button{
+width:100%;
+padding:13px;
+background:linear-gradient(135deg,#ff9900,#ff7a00);
+border:none;
+border-radius:10px;
+color:white;
+font-weight:bold;
+font-size:15px;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+transform:translateY(-2px);
+box-shadow:0 8px 20px rgba(255,153,0,0.4);
+}
+
+/* ERROR */
+
+.error{
+color:#ff4d4d;
+margin-bottom:15px;
+text-align:center;
+font-size:14px;
+}
+
+/* BACK LINK */
+
+.back{
+display:block;
+text-align:center;
+margin-top:20px;
+text-decoration:none;
+color:#ff9900;
+font-weight:600;
+font-size:14px;
+}
+
+.back:hover{
+text-decoration:underline;
+}
+
+/* ICON INPUT */
+
+.input-icon{
+position:relative;
+}
+
+.input-icon i{
+position:absolute;
+left:10px;
+top:12px;
+color:#999;
+}
+
+.input-icon input{
+padding-left:32px;
+}
+
+/* MOBILE */
+
+@media(max-width:520px){
+
+.box{
+width:100%;
+padding:25px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+<h2><i class="fa fa-plus-circle"></i> Add New Product</h2>
+
+<% if(error){ %>
+<p class="error"><%= error %></p>
+<% } %>
+
+<form method="POST" action="/admin-add-product" enctype="multipart/form-data">
+
+<label>Product Name</label>
+<div class="input-icon">
+<i class="fa fa-box"></i>
+<input type="text" name="name" placeholder="Enter product name" required>
+</div>
+
+<label>Price</label>
+<div class="input-icon">
+<i class="fa fa-indian-rupee-sign"></i>
+<input type="number" name="price" placeholder="Enter price" required>
+</div>
+
+<label>Stock</label>
+<div class="input-icon">
+<i class="fa fa-cubes"></i>
+<input type="number" name="stock" placeholder="Enter stock quantity" required>
+</div>
+
+<label>Description</label>
+<textarea name="description" placeholder="Enter product description" required></textarea>
+
+<label>Image URL (Optional)</label>
+<input type="text" name="imageUrl" placeholder="Paste image URL">
+
+<label>Upload Image</label>
+
+<div class="file-upload">
+<input type="file" name="imageFile" accept="image/*" onchange="previewImage(event)">
+<p><i class="fa fa-upload"></i> Choose product image</p>
+</div>
+
+<img id="preview" class="preview">
+
+<button type="submit">
+<i class="fa fa-plus"></i> Add Product
+</button>
+
+</form>
+
+<a href="/admin-dashboard" class="back">
+<i class="fa fa-arrow-left"></i> Back to Dashboard
+</a>
+
+</div>
+
+<script>
+
+function previewImage(event){
+
+const reader = new FileReader();
+
+reader.onload = function(){
+
+const img = document.getElementById("preview");
+img.src = reader.result;
+img.style.display = "block";
+
+}
+
+reader.readAsDataURL(event.target.files[0]);
+
+}
+
+</script>
+
+</body>
+</html>

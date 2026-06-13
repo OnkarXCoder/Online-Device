@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Repair Request | TechFix</title>
+
+<style>
+body{
+  font-family:'Segoe UI',sans-serif;
+  background:#f4f6f9;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+}
+
+.box{
+  background:white;
+  padding:30px;
+  width:450px;
+  border-radius:12px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.1);
+}
+
+input, textarea, select{
+  width:100%;
+  padding:10px;
+  margin-bottom:15px;
+  border-radius:6px;
+  border:1px solid #ccc;
+}
+
+button{
+  padding:10px;
+  width:100%;
+  background:#ff9900;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+button:hover{
+  background:#e68a00;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+<h2>Submit Repair Request</h2>
+
+<form method="POST" action="/repair-request" enctype="multipart/form-data">
+
+<label>Device Type</label>
+<select name="deviceType" required>
+<option>Laptop</option>
+<option>Printer</option>
+<option>Desktop</option>
+<option>Mobile</option>
+<option>Other</option>
+</select>
+
+<label>Brand</label>
+<input type="text" name="brand" placeholder="HP, Dell, Lenovo..." required>
+
+<label>Model</label>
+<input type="text" name="model" placeholder="Device Model">
+
+<label>Problem Type</label>
+<select name="problemType" required>
+<option>Hardware Issue</option>
+<option>Software Issue</option>
+<option>Screen Damage</option>
+<option>Battery Issue</option>
+<option>Keyboard Issue</option>
+<option>Other</option>
+</select>
+
+<label>Describe Issue</label>
+<textarea name="issue" required></textarea>
+
+<label>Urgency Level</label>
+<select name="urgency">
+<option>Normal</option>
+<option>Urgent</option>
+<option>Very Urgent</option>
+</select>
+
+<label>Phone Number</label>
+<input type="text" name="phone" required>
+
+<label>Pickup Required?</label>
+<select name="pickupRequired">
+<option>No</option>
+<option>Yes</option>
+</select>
+
+<label>Pickup Address</label>
+<textarea name="address"></textarea>
+
+<label>Upload Device Image</label>
+<input type="file" name="deviceImage">
+
+<button type="submit">Submit Repair Request</button>
+
+</form>
+
+<br>
+<a href="/">⬅ Back to Home</a>
+</div>
+
+</body>
+</html>

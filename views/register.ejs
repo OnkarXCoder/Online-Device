@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TechFix | Register</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Segoe UI',sans-serif;
+}
+
+body{
+  background:#f4f6f9;
+  color:#333;
+}
+
+/* NAVBAR */
+.navbar{
+  background:#0f1111;
+  padding:20px 80px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.logo{
+  color:#ff9900;
+  font-size:26px;
+  font-weight:700;
+}
+.navbar a{
+  color:#fff;
+  text-decoration:none;
+  margin-left:30px;
+  font-size:14px;
+  transition:0.3s;
+}
+.navbar a:hover{
+  color:#ff9900;
+}
+
+/* FORM SECTION */
+.form-section{
+  min-height:90vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,#131921,#232f3e);
+  padding:60px 20px;
+}
+
+/* CARD */
+.form-box{
+  background:white;
+  padding:50px;
+  width:550px;
+  border-radius:18px;
+  box-shadow:0 25px 60px rgba(0,0,0,0.2);
+  animation:fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(20px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+.form-box h2{
+  margin-bottom:30px;
+  text-align:center;
+  font-size:26px;
+  color:#131921;
+}
+
+/* GRID INPUTS */
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+}
+
+.form-grid input,
+.full-width input{
+  width:100%;
+  padding:12px;
+  border-radius:10px;
+  border:1px solid #ccc;
+  transition:0.3s;
+  font-size:14px;
+}
+
+.form-grid input:focus,
+.full-width input:focus{
+  border-color:#ff9900;
+  box-shadow:0 0 8px rgba(255,153,0,0.4);
+  outline:none;
+}
+
+/* FULL WIDTH FIELDS */
+.full-width{
+  margin-top:15px;
+}
+
+/* BUTTON */
+button{
+  width:100%;
+  padding:14px;
+  margin-top:25px;
+  background:#ff9900;
+  border:none;
+  border-radius:10px;
+  font-weight:600;
+  font-size:15px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+button:hover{
+  background:#e68a00;
+  transform:translateY(-2px);
+  box-shadow:0 10px 25px rgba(255,153,0,0.4);
+}
+
+/* LINK */
+.link{
+  margin-top:18px;
+  text-align:center;
+  font-size:14px;
+}
+
+.link a{
+  color:#ff9900;
+  text-decoration:none;
+  font-weight:500;
+}
+
+.link a:hover{
+  text-decoration:underline;
+}
+
+/* ERROR */
+.error{
+  background:#ffe0e0;
+  color:red;
+  padding:10px;
+  margin-bottom:20px;
+  border-radius:8px;
+  font-size:14px;
+  text-align:center;
+}
+
+/* RESPONSIVE */
+@media(max-width:600px){
+  .form-box{
+    width:100%;
+    padding:30px;
+  }
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+  <div class="logo">Snehprit Enterprises</div>
+  <div>
+    <a href="/">Home</a>
+    <a href="/login">Login</a>
+  </div>
+</div>
+
+<div class="form-section">
+  <div class="form-box">
+
+    <h2>Create Your Account</h2>
+
+    <% if(error){ %>
+      <div class="error"><%= error %></div>
+    <% } %>
+
+    <form method="POST" action="/register">
+
+      <div class="form-grid">
+        <input type="text" name="name" placeholder="Full Name" required>
+        <input type="email" name="email" placeholder="Email Address" required>
+        <input type="text" name="phone" placeholder="Phone Number" required>
+        <input type="text" name="city" placeholder="City" required>
+        <input type="text" name="state" placeholder="State" required>
+        <input type="text" name="pincode" placeholder="Pincode" required>
+      </div>
+
+      <div class="full-width">
+        <input type="text" name="address" placeholder="Full Address" required>
+      </div>
+
+      <div class="form-grid">
+        <input type="password" name="password" placeholder="Password" required>
+        <input type="password" name="confirm" placeholder="Confirm Password" required>
+      </div>
+
+      <button type="submit">Register</button>
+
+    </form>
+
+    <div class="link">
+      Already have account? <a href="/login">Login Here</a>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
