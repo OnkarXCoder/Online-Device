@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const nodemailer = require("nodemailer");
@@ -116,8 +116,6 @@ createdAt:{type:Date,default:Date.now}
 
 /* ================= MULTER ================= */
 
-const uploadPath = process.env.VERCEL ? "/tmp/uploads" : path.join(__dirname, "..", "public", "uploads");
-
 const storage = multer.diskStorage({
 
 destination:(req,file,cb)=>{
@@ -135,20 +133,30 @@ const upload = multer({storage});
 
 /* ================= SESSION ================= */
 
+if(!process.env.MONGODB_URI){
+console.error("FATAL: MONGODB_URI environment variable is not set");
+}
+
 const SESSION_SECRET = process.env.SESSION_SECRET || "techfix_secret";
 
-app.use(session({
+let sessionStore;
+try {
+sessionStore = MongoStore.create({
+mongoUrl: MONGODB_URI,
+collectionName: "sessions"
+});
+} catch(err) {
+console.error("MongoStore init failed, using MemoryStore:", err.message);
+}
 
-secret:SESSION_SECRET,
-resave:false,
-saveUninitialized:false,
+const sessionConfig = {
+secret: SESSION_SECRET,
+resave: false,
+saveUninitialized: false
+};
+if (sessionStore) sessionConfig.store = sessionStore;
 
-store:MongoStore.create({
-mongoUrl:MONGODB_URI,
-collectionName:"sessions"
-})
-
-}));
+app.use(session(sessionConfig));
 app.use(async (req,res,next)=>{
 
 res.locals.user = req.session.user || null;
@@ -986,6 +994,17 @@ status:"Approved"
 
 res.redirect("/my-repairs");
 
+});
+
+/* ================= GLOBAL ERROR HANDLER ================= */
+
+app.use((err, req, res, next) => {
+  console.error("Unhandled error:", err);
+  if (req.headers.accept && req.headers.accept.includes("json")) {
+    res.status(500).json({ error: "Internal Server Error" });
+  } else {
+    res.status(500).send("Something went wrong. Please try again later.");
+  }
 });
 
 /* ================= EXPORT FOR VERCEL ================= */
