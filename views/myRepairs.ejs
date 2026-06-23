@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>My Repairs | TechFix</title>
+
+<style>
+body{
+  font-family:'Segoe UI',sans-serif;
+  background:#f4f6f9;
+  padding:40px;
+}
+
+.card{
+  background:white;
+  padding:20px;
+  border-radius:10px;
+  margin-bottom:20px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+.status{
+  padding:5px 10px;
+  border-radius:6px;
+  font-weight:bold;
+}
+
+.Pending{ background:#ffc107; }
+.InProgress{ background:#17a2b8; color:white; }
+.Completed{ background:#28a745; color:white; }
+</style>
+</head>
+
+<body>
+
+<h2>My Repair Requests</h2>
+
+<% if(repairs.length === 0){ %>
+  <p>No repair requests found.</p>
+<% } else { %>
+
+  <% repairs.forEach(function(r){ %>
+    <div class="card">
+      <p><strong>Device:</strong> <%= r.deviceType %></p>
+      <p><strong>Issue:</strong> <%= r.issue %></p>
+      <p>
+        <strong>Status:</strong>
+        <span class="status <%= r.status.replace(/\s/g,'') %>">
+          <%= r.status %>
+        </span>
+      </p>
+      <% if(r.status === "Waiting for Payment"){ %>
+    <a href="/pay-repair/<%= r._id %>">
+    <button>Pay Now</button>
+    </a>
+
+<% } %>
+    </div>
+  <% }) %>
+
+<% } %>
+
+<br>
+<a href="/">⬅ Back to Home</a>
+
+</body>
+</html>

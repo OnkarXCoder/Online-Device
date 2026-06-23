@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Sneh Preet Enterprises | Electronics Repair Services</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/1055/1055687.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        /* ----- CSS Variables ----- */
+        :root {
+            --primary: #ff9900;
+            --primary-dark: #e68a00;
+            --dark: #131921;
+            --dark-light: #232f3e;
+            --bg: #f4f6f9;
+            --white: #ffffff;
+            --gray: #ccc;
+            --shadow-sm: 0 10px 25px rgba(0,0,0,0.08);
+            --shadow-md: 0 10px 30px rgba(0,0,0,0.12);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            background: var(--bg);
+            color: #333;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Background Overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(244,246,249,0.85), rgba(244,246,249,0.85)), url("/images/shop-bg.png");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: -1;
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--dark);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            color: var(--primary);
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        /* Desktop Nav Links */
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a, .nav-links .nav-item {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover, .nav-links .nav-item:hover {
+            color: var(--primary);
+        }
+
+        /* Hamburger Menu (Mobile) */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            transition: var(--transition);
+        }
+
+        /* Mobile Menu */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 20px 0 10px;
+                gap: 15px;
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .navbar {
+                padding: 15px 20px;
+            }
+        }
+
+        /* Notification Bell */
+        .notification-wrapper {
+            position: relative;
+            cursor: pointer;
+        }
+        .notification-bell {
+            color: white;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+        .notification-bell:hover {
+            color: var(--primary);
+        }
+        .badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: red;
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 50%;
+            font-weight: bold;
+        }
+        .notification-box {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 35px;
+            width: 280px;
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            padding: 15px;
+            z-index: 999;
+            color: #333;
+        }
+        .notification-box p {
+            font-size: 0.85rem;
+            margin-bottom: 12px;
+        }
+        .notification-box .actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 5px;
+        }
+        .notification-box button {
+            background: var(--primary);
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: var(--transition);
+        }
+        .notification-box button:hover {
+            background: var(--primary-dark);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            background: linear-gradient(135deg, var(--dark), var(--dark-light));
+            color: white;
+            padding: 100px 20px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            animation: fadeInUp 0.8s ease;
+        }
+        .hero p {
+            max-width: 700px;
+            margin: auto;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* ===== SECTION COMMON ===== */
+        .section {
+            padding: 70px 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+        .section h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2rem;
+            position: relative;
+        }
+        .section h2:after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--primary);
+            margin: 12px auto 0;
+            border-radius: 3px;
+        }
+
+        /* ===== ABOUT ===== */
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+        .about-image img {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+        }
+        .about-image img:hover {
+            transform: scale(1.02);
+        }
+        .about-text p {
+            margin-bottom: 15px;
+        }
+
+        /* ===== SERVICES ===== */
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        .service-card {
+            background: var(--white);
+            padding: 30px 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+        .service-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        .service-card h3 {
+            margin-bottom: 10px;
+        }
+
+        /* ===== STATS ===== */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            text-align: center;
+        }
+        .stat-box {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+        }
+        .stat-box h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 8px;
+        }
+
+        /* ===== PRODUCTS ===== */
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 25px;
+        }
+        .product-card {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+        .product-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        .product-card:hover img {
+            transform: scale(1.05);
+        }
+        .product-card h3 {
+            margin: 15px 15px 5px;
+        }
+        .product-card p {
+            margin: 0 15px 10px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        .price {
+            color: var(--primary);
+            font-weight: bold;
+            margin: 0 15px 15px;
+            font-size: 1.2rem;
+        }
+        .product-card button {
+            background: var(--primary);
+            border: none;
+            padding: 10px;
+            margin: 0 15px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: var(--transition);
+        }
+        .product-card button:hover {
+            background: var(--primary-dark);
+            transform: scale(1.02);
+        }
+        .hidden-product {
+            display: none;
+        }
+        .see-more-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+        #seeMoreBtn {
+            background: var(--dark);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        #seeMoreBtn:hover {
+            background: var(--primary);
+            color: black;
+        }
+
+        /* ===== FEEDBACK SECTION ===== */
+        .feedback-section {
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            margin-top: 40px;
+        }
+        .feedback-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+        .feedback-form-card {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: var(--shadow-sm);
+        }
+        .feedback-form-card h3 {
+            margin-bottom: 20px;
+        }
+        .feedback-form-card select,
+        .feedback-form-card textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        .feedback-form-card textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        .feedback-form-card button {
+            background: var(--primary);
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .feedback-form-card button:hover {
+            background: var(--primary-dark);
+        }
+        .feedback-container {
+            display: grid;
+            gap: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        .feedback-card {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+        .feedback-card:hover {
+            transform: translateY(-3px);
+        }
+        .feedback-card h4 {
+            margin-bottom: 5px;
+        }
+        .stars {
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+        .loading-spinner {
+            text-align: center;
+            padding: 20px;
+            color: var(--primary);
+        }
+
+       /* ===== MODAL (ENLARGED) ===== */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.75);
+    justify-content: center;
+    align-items: center;
+    z-index: 1001;
+    backdrop-filter: blur(4px);
+}
+.modal-content {
+    background: #fff;
+    border-radius: 20px;
+    width: 700px;
+    max-width: 90%;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 0;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+    animation: modalFadeIn 0.3s ease;
+}
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+.modal-content .close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #555;
+    cursor: pointer;
+    transition: 0.2s;
+    z-index: 2;
+}
+.modal-content .close:hover {
+    color: #000;
+}
+.modal-content img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 20px 20px 0 0;
+    margin-bottom: 0;
+}
+.modal-body {
+    padding: 20px 30px 30px;
+}
+.modal-body h2 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: #131921;
+}
+.modal-body .price {
+    font-size: 1.6rem;
+    color: var(--primary);
+    font-weight: bold;
+    margin: 10px 0;
+}
+.modal-body .desc {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.5;
+    margin: 15px 0;
+}
+.modal-body .stock {
+    font-size: 0.9rem;
+    color: #28a745;
+    font-weight: 500;
+    margin: 10px 0;
+}
+.modal-body form {
+    margin-top: 20px;
+}
+.buy-btn {
+    background: var(--primary);
+    border: none;
+    padding: 12px 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+    width: 100%;
+}
+.buy-btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+        /* ===== BACK TO TOP BUTTON ===== */
+        #backToTop {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 999;
+            box-shadow: var(--shadow-sm);
+        }
+        #backToTop.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        #backToTop:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: #0f1111;
+            color: #ccc;
+            padding: 50px 20px;
+            margin-top: 60px;
+        }
+        .footer-grid {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+        }
+        .footer h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        .footer a {
+            color: #ccc;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 8px;
+            transition: var(--transition);
+        }
+        .footer a:hover {
+            color: var(--primary);
+        }
+        .footer-bottom {
+            text-align: center;
+            margin-top: 30px;
+            border-top: 1px solid #333;
+            padding-top: 15px;
+            font-size: 0.8rem;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 900px) {
+            .about-container {
+                grid-template-columns: 1fr;
+            }
+            .feedback-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width: 600px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .section {
+                padding: 40px 20px;
+            }
+            .stats {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ========== NAVBAR ========== -->
+<div class="navbar">
+    <a href="/" class="logo">Sneh Preet Enterprises</a>
+    <div class="hamburger" onclick="toggleMobileMenu()">
+        <span></span><span></span><span></span>
+    </div>
+    <div class="nav-links" id="navLinks">
+        <a href="/">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#products">Products</a>
+        <a href="/repair-request">Repair</a>
+        <a href="/cart">
+            <i class="fa-solid fa-cart-shopping"></i>
+            (<%= typeof cartCount !== 'undefined' ? cartCount : 0 %>)
+        </a>
+
+        <% if(user){ %>
+            <% if(user.role === "admin"){ %>
+                <a href="/admin-dashboard">Admin</a>
+            <% } %>
+            <a href="/logout">Logout</a>
+        <% } else { %>
+            <a href="/login">Login</a>
+            <a href="/register">Register</a>
+        <% } %>
+
+        <!-- Notification Bell -->
+        <div class="notification-wrapper">
+            <i class="fa fa-bell notification-bell" onclick="toggleNotification(event)"></i>
+            <% if(notification){ %>
+                <span class="badge">1</span>
+            <% } %>
+            <div id="notifBox" class="notification-box">
+                <% if(notification){ %>
+                    <p><%= notification %></p>
+                    <div class="actions">
+                        <a href="/repair-checkout/<%= repairId %>">
+                            <button>Pay Now</button>
+                        </a>
+                        <form action="/approve-repair/<%= repairId %>" method="POST">
+                            <button type="submit">Approve</button>
+                        </form>
+                    </div>
+                <% } else { %>
+                    <p style="text-align:center;">No Notifications</p>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ========== HERO ========== -->
+<div class="hero">
+    <h1>Sneh Preet Enterprises</h1>
+    <p>Trusted electronics repair & service center in Navi Peth, Solapur. Providing reliable laptop, computer and printer repair services since 2007.</p>
+</div>
+
+<!-- ========== ABOUT ========== -->
+<div class="section" id="about">
+    <h2>About Us</h2>
+    <div class="about-container">
+        <div class="about-image">
+            <img src="/uploads/image.jpeg" alt="Repair Shop Interior" loading="lazy">
+        </div>
+        <div class="about-text">
+            <p><strong>Sneh Preet Enterprises</strong> located in Navi Peth, Solapur is a trusted electronics repair service provider.</p>
+            <p>Established in 2007, the company has built a strong reputation for delivering reliable repair services with expert technicians.</p>
+            <p>Whether it's a minor issue or a major hardware problem, our team ensures quick diagnosis and efficient repair.</p>
+        </div>
+    </div>
+</div>
+
+<!-- ========== SERVICES ========== -->
+<div class="section" id="services">
+    <h2>Repair Services</h2>
+    <div class="services">
+        <div class="service-card">
+            <i class="fa fa-laptop"></i>
+            <h3>Laptop Repair</h3>
+            <p>Screen replacement, motherboard repair and upgrades.</p>
+        </div>
+        <div class="service-card">
+            <i class="fa fa-print"></i>
+            <h3>Printer Repair</h3>
+            <p>Printer troubleshooting and cartridge services.</p>
+        </div>
+        <div class="service-card">
+            <i class="fa fa-desktop"></i>
+            <h3>Computer Repair</h3>
+            <p>Desktop repairs and OS installation.</p>
+        </div>
+        <div class="service-card">
+            <i class="fa fa-tools"></i>
+            <h3>Maintenance</h3>
+            <p>Routine servicing and performance optimization.</p>
+        </div>
+    </div>
+</div>
+
+<!-- ========== STATS ========== -->
+<div class="section">
+    <h2>Our Achievements</h2>
+    <div class="stats">
+        <div class="stat-box"><h1>18+</h1><p>Years Experience</p></div>
+        <div class="stat-box"><h1>1000+</h1><p>Devices Repaired</p></div>
+        <div class="stat-box"><h1>500+</h1><p>Happy Customers</p></div>
+        <div class="stat-box"><h1>24/7</h1><p>Customer Support</p></div>
+    </div>
+</div>
+
+<!-- ========== PRODUCTS ========== -->
+<div class="section" id="products">
+    <h2>Products</h2>
+    <% if(products && products.length > 0){ %>
+        <div class="products">
+            <% products.forEach(function(product, index){ %>
+                <div class="product-card <%= index >= 4 ? 'hidden-product' : '' %>" 
+                     onclick="openProduct(
+                        `<%= product.name %>`,
+                        `<%= product.price %>`,
+                        `<%= product.description || '' %>`,
+                        `<%= product.image %>`,
+                        `<%= product.stock %>`,
+                        `<%= product._id %>`
+                    )">
+                    <img src="<%= product.image %>" alt="<%= product.name %>" loading="lazy">
+                    <h3><%= product.name %></h3>
+                    <p><%= product.description %></p>
+                    <div class="price">₹<%= product.price %></div>
+                    <% if(user){ %>
+                        <form method="POST" action="/add-to-cart/<%= product._id %>" onclick="event.stopPropagation()">
+                            <button type="submit">Add to Cart</button>
+                        </form>
+                    <% } else { %>
+                        <a href="/login" onclick="event.stopPropagation()"><button type="button">Login to Buy</button></a>
+                    <% } %>
+                </div>
+            <% }) %>
+        </div>
+        <% if(products.length > 4){ %>
+            <div class="see-more-container">
+                <button id="seeMoreBtn" onclick="showMoreProducts()">See More</button>
+            </div>
+        <% } %>
+    <% } else { %>
+        <p style="text-align:center;">No products available</p>
+    <% } %>
+</div>
+
+<!-- ========== CUSTOMER FEEDBACK ========== -->
+<div class="section feedback-section">
+    <h2>⭐ Customer Feedback</h2>
+    <div class="feedback-layout">
+        <!-- Feedback Form -->
+        <div class="feedback-form-card">
+            <h3>Leave Your Feedback</h3>
+            <select id="rating">
+                <option value="5">⭐⭐⭐⭐⭐</option>
+                <option value="4">⭐⭐⭐⭐</option>
+                <option value="3">⭐⭐⭐</option>
+                <option value="2">⭐⭐</option>
+                <option value="1">⭐</option>
+            </select>
+            <textarea id="message" placeholder="Write your experience..."></textarea>
+            <button onclick="submitFeedback()">Submit Feedback</button>
+        </div>
+        <!-- Feedback List -->
+        <div id="feedbackContainer" class="feedback-container">
+            <div class="loading-spinner">Loading feedback...</div>
+        </div>
+    </div>
+</div>
+
+<!-- ========== MODAL (for product details) ========== -->
+<div id="productModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img id="modalImage" alt="Product">
+        <div class="modal-body">
+            <h2 id="modalName"></h2>
+            <div class="price" id="modalPrice"></div>
+            <div class="stock" id="modalStock"></div>
+            <div class="desc" id="modalDesc"></div>
+            <form id="modalAddToCartForm" method="POST" action="">
+                <button type="submit" class="buy-btn">Add to Cart</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- ========== FOOTER ========== -->
+<div class="footer">
+    <div class="footer-grid">
+        <div>
+            <h3>Sneh Preet Enterprises</h3>
+            <p>Trusted electronics repair center in Navi Peth, Solapur.</p>
+        </div>
+        <div>
+            <h3>Quick Links</h3>
+            <a href="/">Home</a>
+            <a href="#services">Services</a>
+            <a href="#products">Products</a>
+            <a href="/repair-request">Repair</a>
+        </div>
+        <div>
+            <h3>Contact</h3>
+            <p>📍 Navi Peth, Solapur</p>
+            <p>📞 +91 9876543210</p>
+            <p>📧 snehpreetenterprise@gmail.com</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        © 2026 Sneh Preet Enterprises | All Rights Reserved
+    </div>
+</div>
+
+<!-- Back to Top Button -->
+<div id="backToTop" onclick="scrollToTop()">
+    <i class="fas fa-arrow-up"></i>
+</div>
+
+<script>
+    // ---------- Mobile Menu Toggle ----------
+    function toggleMobileMenu() {
+        const navLinks = document.getElementById('navLinks');
+        navLinks.classList.toggle('active');
+    }
+
+    // ---------- Products "See More" ----------
+    function showMoreProducts() {
+        const hidden = document.querySelectorAll('.hidden-product');
+        hidden.forEach(product => product.style.display = 'block');
+        document.getElementById('seeMoreBtn').style.display = 'none';
+    }
+
+    // ---------- Notification Bell ----------
+    function toggleNotification(event) {
+        event.stopPropagation();
+        const box = document.getElementById('notifBox');
+        box.style.display = box.style.display === 'block' ? 'none' : 'block';
+    }
+    window.onclick = function(e) {
+        const box = document.getElementById('notifBox');
+        if(box && !e.target.closest('.notification-wrapper')) {
+            box.style.display = 'none';
+        }
+    }
+
+    // ---------- Back to Top Button Visibility ----------
+    window.addEventListener('scroll', function() {
+        const btn = document.getElementById('backToTop');
+        if(window.scrollY > 300) {
+            btn.classList.add('show');
+        } else {
+            btn.classList.remove('show');
+        }
+    });
+    function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ---------- Feedback System ----------
+    async function loadFeedback() {
+        const container = document.getElementById('feedbackContainer');
+        if(!container) return;
+        try {
+            const res = await fetch('/get-feedback');
+            const data = await res.json();
+            container.innerHTML = '';
+            if(data.length === 0) {
+                container.innerHTML = '<div class="feedback-card">No feedback yet. Be the first to leave a review!</div>';
+                return;
+            }
+            data.forEach(f => {
+                const stars = '⭐'.repeat(f.rating);
+                container.innerHTML += `
+                    <div class="feedback-card">
+                        <h4>${escapeHtml(f.name)}</h4>
+                        <div class="stars">${stars}</div>
+                        <p>${escapeHtml(f.message)}</p>
+                    </div>
+                `;
+            });
+        } catch(err) {
+            console.error('Feedback load error:', err);
+            container.innerHTML = '<div class="feedback-card">Failed to load feedback. Please try again later.</div>';
+        }
+    }
+
+    async function submitFeedback() {
+        const rating = document.getElementById('rating').value;
+        const message = document.getElementById('message').value.trim();
+        if(!message) {
+            alert('Please write your feedback.');
+            return;
+        }
+        const submitBtn = document.querySelector('.feedback-form-card button');
+        const originalText = submitBtn.innerText;
+        submitBtn.innerText = 'Submitting...';
+        submitBtn.disabled = true;
+
+        try {
+            const res = await fetch('/submit-feedback', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ rating, message })
+            });
+            const data = await res.json();
+            if(data.success) {
+                document.getElementById('message').value = '';
+                loadFeedback();
+                alert('Thank you for your feedback!');
+            } else {
+                alert('Failed to submit. Please try again.');
+            }
+        } catch(err) {
+            alert('Error submitting feedback.');
+        } finally {
+            submitBtn.innerText = originalText;
+            submitBtn.disabled = false;
+        }
+    }
+
+    function escapeHtml(str) {
+        if(!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if(m === '&') return '&amp;';
+            if(m === '<') return '&lt;';
+            if(m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    // ---------- Product Modal ----------
+    function openProduct(name, price, desc, image, stock, productId) {
+        document.getElementById('modalName').innerText = name;
+        document.getElementById('modalPrice').innerText = '₹' + price;
+        document.getElementById('modalDesc').innerText = desc;
+        document.getElementById('modalStock').innerText = 'Stock: ' + stock;
+        document.getElementById('modalImage').src = image;
+        // Set the form action to the add-to-cart endpoint for this product
+        const form = document.getElementById('modalAddToCartForm');
+        form.action = '/add-to-cart/' + productId;
+        document.getElementById('productModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+        document.getElementById('productModal').style.display = 'none';
+    }
+
+    // Close modal when clicking outside content
+    window.onclick = function(event) {
+        const modal = document.getElementById('productModal');
+        if (event.target === modal) {
+            closeModal();
+        }
+        // Also close notification box if clicked outside
+        const notifBox = document.getElementById('notifBox');
+        if (notifBox && !event.target.closest('.notification-wrapper')) {
+            notifBox.style.display = 'none';
+        }
+    }
+
+    // Load feedback on page load
+    loadFeedback();
+</script>
+</body>
+</html>
