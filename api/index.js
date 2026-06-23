@@ -1019,11 +1019,7 @@ res.redirect("/my-repairs");
 
 app.use((err, req, res, next) => {
   console.error("Unhandled error:", err);
-  if (req.headers.accept && req.headers.accept.includes("json")) {
-    res.status(500).json({ error: "Internal Server Error" });
-  } else {
-    res.status(500).send("Something went wrong. Please try again later.");
-  }
+  res.status(500).send("Error: " + (err.message || "Unknown error"));
 });
 
 /* ================= EXPORT FOR VERCEL ================= */
