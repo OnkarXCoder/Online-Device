@@ -10,9 +10,13 @@ const Razorpay = require("razorpay");
 
 const app = express();
 
+if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {
+  console.error("FATAL: RAZORPAY_KEY_ID and RAZORPAY_KEY_SECRET must be set");
+}
+
 const razorpay = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID,
-  key_secret: process.env.RAZORPAY_KEY_SECRET
+  key_id: process.env.RAZORPAY_KEY_ID || "rzp_test_SNblsok03hryMM",
+  key_secret: process.env.RAZORPAY_KEY_SECRET || "96qcijqxGoAqiZ2VannwJb0h"
 });
 
 /* ================= MIDDLEWARE ================= */
@@ -137,7 +141,10 @@ if(!process.env.MONGODB_URI){
 console.error("FATAL: MONGODB_URI environment variable is not set");
 }
 
-const SESSION_SECRET = process.env.SESSION_SECRET;
+const SESSION_SECRET = process.env.SESSION_SECRET || "techfix_secret";
+if (!process.env.SESSION_SECRET) {
+  console.warn("WARNING: SESSION_SECRET not set, using default (not secure for production)");
+}
 
 let sessionStore;
 try {
