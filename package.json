@@ -1,6 +1,7 @@
 {
   "scripts": {
     "start": "node server.js",
+    "seed": "node scripts/seed.js",
     "vercel-dev": "vercel dev"
   },
   "dependencies": {

@@ -2,9 +2,10 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const session = require("express-session");
-const MongoStore = require("connect-mongo");
+const { MongoStore } = require("connect-mongo");
 const nodemailer = require("nodemailer");
 const path = require("path");
+const fs = require("fs");
 const multer = require("multer");
 const Razorpay = require("razorpay");
 
@@ -24,6 +25,19 @@ const razorpay = new Razorpay({
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "..", "public")));
+
+/* ================= DYNAMIC PRODUCT IMAGES ================= */
+
+app.get("/uploads/:filename", (req, res) => {
+  const fp = path.join(__dirname, "..", "public", "uploads", req.params.filename);
+  if (fs.existsSync(fp)) return res.sendFile(fp);
+  const match = demoProducts.find(p => p.image === req.params.filename);
+  if (match) {
+    res.set("Content-Type", "image/svg+xml");
+    return res.send(createSvgImage(match));
+  }
+  res.status(404).send("Image not found");
+});
 
 app.set("view engine","ejs");
 app.set("views",path.join(__dirname, "..", "views"));
@@ -148,7 +162,7 @@ if (!process.env.SESSION_SECRET) {
 
 let sessionStore;
 try {
-sessionStore = MongoStore.create({
+sessionStore = new MongoStore({
 mongoUrl: MONGODB_URI,
 collectionName: "sessions"
 });
@@ -330,7 +344,119 @@ res.send("Edit page error");
 
 });
 
-/* ================= DEFAULT ADMIN ================= */
+/* ================= DEMO PRODUCTS ================= */
+
+const demoProducts = [
+  {
+    name:"Wireless Bluetooth Earbuds",
+    price:1299,
+    image:"demo-earbuds.svg",
+    description:"High-quality wireless earbuds with noise cancellation, 24hr battery life, and comfortable fit.",
+    stock:50,
+    color:"#1a73e8",
+    icon:"\uD83C\uDFA7"
+  },
+  {
+    name:"Tempered Glass Screen Guard",
+    price:349,
+    image:"demo-screen-guard.svg",
+    description:"9H hardness tempered glass screen protector with oleophobic coating. Anti-scratch and anti-fingerprint.",
+    stock:100,
+    color:"#34a853",
+    icon:"\uD83D\uDCF1"
+  },
+  {
+    name:"USB-C Fast Charging Cable",
+    price:249,
+    image:"demo-usb-cable.svg",
+    description:"Braided nylon USB-C cable with 60W fast charging support. Durable and tangle-free.",
+    stock:200,
+    color:"#ea4335",
+    icon:"\uD83D\uDD0C"
+  },
+  {
+    name:"Portable Power Bank 10000mAh",
+    price:1999,
+    image:"demo-powerbank.svg",
+    description:"High-capacity 10000mAh power bank with dual USB output and fast charging. Compact and travel-friendly.",
+    stock:30,
+    color:"#fbbc04",
+    icon:"\uD83D\uDD0B"
+  },
+  {
+    name:"Wireless Optical Mouse",
+    price:599,
+    image:"demo-mouse.svg",
+    description:"Ergonomic wireless mouse with 1600 DPI optical sensor, silent clicks, and USB receiver.",
+    stock:75,
+    color:"#ff6d01",
+    icon:"\uD83D\uDDB1\uFE0F"
+  },
+  {
+    name:"Laptop Cooling Pad",
+    price:1499,
+    image:"demo-cooling-pad.svg",
+    description:"Dual fan laptop cooling pad with adjustable height and blue LED lighting. Keeps your laptop cool.",
+    stock:25,
+    color:"#46bdc6",
+    icon:"\uD83D\uDCBB"
+  },
+  {
+    name:"Smart WiFi LED Bulb",
+    price:449,
+    image:"demo-smart-bulb.svg",
+    description:"9W WiFi-enabled smart LED bulb with 16 million colors, voice control, and scheduling. Works with Alexa and Google Home.",
+    stock:60,
+    color:"#9c27b0",
+    icon:"\uD83D\uDCA1"
+  },
+  {
+    name:"HDMI Cable 2 Meter",
+    price:299,
+    image:"demo-hdmi-cable.svg",
+    description:"High-speed HDMI 2.0 cable supporting 4K resolution, HDR, and 60fps. Gold-plated connectors.",
+    stock:150,
+    color:"#607d8b",
+    icon:"\uD83D\uDCFA"
+  },
+  {
+    name:"Bluetooth Portable Speaker",
+    price:1799,
+    image:"demo-speaker.svg",
+    description:"Powerful Bluetooth 5.0 speaker with deep bass, 12hr battery life, and IPX5 water resistance. Perfect for outdoor and indoor use.",
+    stock:40,
+    color:"#8e24aa",
+    icon:"\uD83D\uDD0A"
+  },
+  {
+    name:"Wireless Keyboard Combo",
+    price:899,
+    image:"demo-keyboard.svg",
+    description:"Full-size wireless keyboard and mouse combo with quiet keys, ergonomic design, and USB receiver. Compatible with all operating systems.",
+    stock:60,
+    color:"#00acc1",
+    icon:"\u2328\uFE0F"
+  }
+];
+
+function createSvgImage(product){
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:${product.color};stop-opacity:0.7"/>
+      <stop offset="100%" style="stop-color:${product.color};stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" rx="20" fill="url(#bg)"/>
+  <circle cx="200" cy="160" r="70" fill="rgba(255,255,255,0.2)"/>
+  <text x="200" y="182" text-anchor="middle" font-size="64">${product.icon}</text>
+  <text x="200" y="290" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="white" font-weight="bold">${product.name}</text>
+  <text x="200" y="320" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" fill="rgba(255,255,255,0.8)">TechFix Store</text>
+  <text x="200" y="345" text-anchor="middle" font-family="Arial,sans-serif" font-size="20" fill="white" font-weight="bold">\u20B9${product.price}</text>
+</svg>`;
+}
+
+/* ================= DEFAULT ADMIN & DEMO PRODUCTS ================= */
 
 (async () => {
   try {
@@ -346,8 +472,25 @@ res.send("Edit page error");
       });
       console.log("Default Admin Created");
     }
+    const upDir = path.join(__dirname, "..", "public", "uploads");
+    if (!fs.existsSync(upDir)) { fs.mkdirSync(upDir, { recursive: true }); }
+    for (const p of demoProducts) {
+      const fp = path.join(upDir, p.image);
+      if (!fs.existsSync(fp)) { fs.writeFileSync(fp, createSvgImage(p), "utf-8"); }
+      const existing = await Product.findOne({ name: p.name });
+      if (!existing) {
+        await Product.create({
+          name: p.name,
+          price: p.price,
+          image: "/uploads/" + p.image,
+          description: p.description,
+          stock: p.stock
+        });
+      }
+    }
+    console.log("Demo Products Synced");
   } catch(err) {
-    console.log("Admin init error:", err.message);
+    console.log("Init error:", err.message);
   }
 })();
 
